@@ -1,18 +1,32 @@
-const { Octokit } = require("@octokit/rest");
-const octokit = new Octokit();
-
+const fetch = require('node-fetch')
 const express = require('express');
 const app = express();
-app.get('/search/:keyword', (req, res) => {
-  let keyword = req.params.keyword;
-  octokit.search.repos({
-    q: keyword
-  })
-    .then(result => {
-      res.send(result.data)
-    })
-    .catch(res.send)
 
+function checkStatus(res) {
+  if (res.ok) {
+    return res.json();
+  } else {
+    throw {
+      error: res.statusText,
+      errorCode: res.status
+    }
+  }
+}
+
+app.get('/search/:keyword', async (req, res) => {
+  let keyword = req.params.keyword;
+  let resData = {}
+
+  await fetch('https://api.github.com/search/repositories?q=' + keyword)
+    .then(checkStatus)
+    .then(json => {
+      resData.data = json
+    })
+    .catch(err => {
+      resData.error = err.error
+      resData.errorCode = err.errorCode
+    })
+  res.send(resData)
 });
 
 app.listen(3000, () => {
