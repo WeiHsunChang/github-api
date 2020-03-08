@@ -1,0 +1,23 @@
+{
+  "name": "github-api",
+  "version": "1.0.0",
+  "description": "github-api demo",
+  "main": "search-repos.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WeiHsunChang/github-api.git"
+  },
+  "author": "WEI-HSUN CHANG",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WeiHsunChang/github-api/issues"
+  },
+  "homepage": "https://github.com/WeiHsunChang/github-api#readme",
+  "dependencies":{
+    "express":"4.17.1",
+    "node-fetch":"2.6.0"
+  }
+}
